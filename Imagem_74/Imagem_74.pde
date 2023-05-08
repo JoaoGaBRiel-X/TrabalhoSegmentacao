@@ -5,7 +5,9 @@ void setup(){
 
 void draw(){
   PImage img = loadImage("A-0074_Original.jpg");
+  PImage img2 = loadImage("A-0074_Original.jpg");
   PImage out = createImage(img.width, img.height, RGB);
+  PImage seg = createImage(img.width, img.height, RGB);
   
   
  //  //Filtro de escala de cinza
@@ -76,13 +78,31 @@ void draw(){
       }
     }
   }
-
-  image(out,0,0);
-  stroke(0);
-  strokeWeight(2);
-  fill(255,0,0);
-  textSize(20);  
-  text(mouseX + " " + mouseY, mouseX, mouseY);
-  save("C-74_GT_saida.jpg");
+  
+  out.save("C-74_GT_saida.jpg"); // Salva o Ground Truth Gerado
+  
+  //segmentando a imagem original
+  
+  // Itera sobre cada pixel da imagem original
+  for (int x = 0; x < img2.width; x++) {
+    for (int y = 0; y < img2.height; y++) {
+      int pos = y * img2.width + x;
+      // Obtém a cor do pixel correspondente na imagem ground truth
+      if(red(out.pixels[pos]) == 255){
+        seg.pixels[pos] = color(255);
+      } else {
+        seg.pixels[pos] = color(red(img2.pixels[pos]), green(img2.pixels[pos]), blue(img2.pixels[pos]));
+      }
+    }
+  }
+  seg.save("D-74_Segmentada.jpg"); 
+  
+  //image(out,0,0);
+  //stroke(0);
+  //strokeWeight(2);
+  //fill(255,0,0);
+  //textSize(20);  
+  //text(mouseX + " " + mouseY, mouseX, mouseY);
+  
   
 }
