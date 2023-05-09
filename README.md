@@ -1,4 +1,4 @@
-# TrabalhoSegmentacao
+# Trabalho Segmentacao
 Computação Gráfica e Processamento de Imagens Trabalho de Segmentação de Imagens Professor José Guilherme Picolo
 
 RA: 001202009395 JOÃO GABRIEL MORAES CARVALHO
