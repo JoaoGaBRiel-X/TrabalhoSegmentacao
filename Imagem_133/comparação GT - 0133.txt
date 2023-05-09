@@ -1,0 +1,31 @@
+void setup() {
+  size(1400, 486);
+  noLoop();
+}
+
+void draw() {
+  PImage groundTruthGerado = loadImage("C-0133_GT_saida.jpg");
+  PImage groundTruthOriginal = loadImage("0133Groundtruthoriginal.jpg");
+  int acerto = 0;
+  int falsoPositivo = 0;
+  int falsoNegativo = 0;
+  for (int y = 0; y < groundTruthGerado.height; y++ ) {
+    for (int x = 0; x < groundTruthGerado.width; x++) {
+      int pos = y*groundTruthGerado.width+x;
+      if ((red(groundTruthGerado.pixels[pos]) > 127  && red(groundTruthOriginal.pixels[pos]) > 127) ||
+        (red(groundTruthGerado.pixels[pos]) <= 127  && red(groundTruthOriginal.pixels[pos]) <= 127)) {
+        acerto++;
+      } else if ((red(groundTruthGerado.pixels[pos]) < 127 && red(groundTruthOriginal.pixels[pos]) > 127)) {
+        falsoPositivo = falsoPositivo +1;
+      } else if ((red(groundTruthGerado.pixels[pos]) > 127 && red(groundTruthOriginal.pixels[pos]) < 127)) {
+        falsoNegativo = falsoNegativo +1;
+      }
+    }
+  }
+  println("Acertos:" + acerto);
+  println("Falsos Positivos" + falsoPositivo);
+  print("Falsos Negativos" + falsoNegativo);
+  image(groundTruthOriginal, 0, 0);
+  image(groundTruthGerado, groundTruthOriginal.width + 20, 0);
+  save("groundtruthfinal2.jpg");
+}

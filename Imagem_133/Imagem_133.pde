@@ -4,8 +4,8 @@ void setup(){
 }
 
 void draw(){
-  PImage img = loadImage("A-0074_Original.jpg");
-  PImage img2 = loadImage("A-0074_Original.jpg");
+  PImage img = loadImage("A-0133_Original.jpg");
+  PImage img2 = loadImage("A-0133_Original.jpg");
   PImage out = createImage(img.width, img.height, RGB);
   PImage seg = createImage(img.width, img.height, RGB);
   
@@ -15,7 +15,7 @@ void draw(){
   for (int y = 0; y < img.height; y++){
     for (int x = 0; x < img.width; x++){
       int pos = y * img.width + x;
-      int media = (int) (blue(img.pixels[pos]));
+      int media = (int) (green(img.pixels[pos]));
       out.pixels[pos] = color(media);
     }
   }
@@ -26,7 +26,7 @@ void draw(){
   for (int y = 0; y < img.height; y++){
     for (int x = 0; x < img.width; x++){
       int pos = y * img.width + x;
-      int intensidade = (int) red(out.pixels[pos]) - 180;
+      int intensidade = (int) green(out.pixels[pos]) - 150;
       if(intensidade > 255) intensidade = 255;
       else if (intensidade < 0) intensidade = 0;
       out.pixels[pos] = color(intensidade);
@@ -39,46 +39,31 @@ void draw(){
   for (int y = 0; y < img.height; y++){
     for (int x = 0; x < img.width; x++){
       int pos = y * img.width + x;
-      if (red(out.pixels[pos]) > 40) {
+      if (red(out.pixels[pos]) > 17) {
         out.pixels[pos] = color(255);
       }
-      else if(y < 160){
+      else if(y < 20){
         out.pixels[pos] = color(255);
       }
       else {
         out.pixels[pos] = color(0);
       }
-      if((x > 160) && (x < 180) && (y > 222) && (y < 240)){
+      if((x > 130) && (x < 310) && (y > 230) && (y < 300)){
         out.pixels[pos] = color(0);
       }
-      if((x > 270) && (x < 303) && (y > 230) && (y < 259)){
+      if((x > 110) && (x < 170) && (y > 180) && (y < 210)){
         out.pixels[pos] = color(0);
       }
-      if((x > 360) && (x < 382) && (y > 240) && (y < 267)){
+      if((x > 70) && (x < 300) && (y > 249) && (y < 255)){
         out.pixels[pos] = color(0);
       }
-      if((x > 205) && (x < 232) && (y > 251) && (y < 266)){
-        out.pixels[pos] = color(0);
-      }
-      if((x > 264) && (x < 281) && (y > 195) && (y < 204)){
-        out.pixels[pos] = color(0);
-      }
-      if((x > 446) && (x < 462) && (y > 221) && (y < 235)){
-        out.pixels[pos] = color(0);
-      }
-      if((x > 461) && (x < 468) && (y > 222) && (y < 235)){
-        out.pixels[pos] = color(0);
-      }
-      if((x > 344) && (x < 348) && (y > 211) && (y < 215)){
-        out.pixels[pos] = color(0);
-      }
-      if((x > 526) && (x < 530) && (y > 237) && (y < 240)){
+     if((x > 400) && (x < 450) && (y > 210) && (y < 240)){
         out.pixels[pos] = color(0);
       }
     }
   }
-  
-  out.save("C-74_GT_saida.jpg"); // Salva o Ground Truth Gerado
+
+   out.save("C-0133_GT_saida.jpg"); // Salva o Ground Truth Gerado
   
   //segmentando a imagem original
   
@@ -94,7 +79,7 @@ void draw(){
       }
     }
   }
-  seg.save("D-74_Segmentada.jpg"); 
+  seg.save("D-0133_Segmentada.jpg"); 
   
   //image(out,0,0);
   //stroke(0);
@@ -102,9 +87,8 @@ void draw(){
   //fill(255,0,0);
   //textSize(20);  
   //text(mouseX + " " + mouseY, mouseX, mouseY);
-  
-  PImage groundTruthGerado = loadImage("C-74_GT_saida.jpg");
-  PImage groundTruthOriginal = loadImage("B-0074_GT_Modelo.jpeg");
+  PImage groundTruthGerado = loadImage("C-0133_GT_saida.jpg");
+  PImage groundTruthOriginal = loadImage("B-0133_GT_Modelo.jpg");
   int acerto = 0;
   int falsoPositivo = 0;
   int falsoNegativo = 0;
@@ -123,5 +107,5 @@ void draw(){
   }
   println("Acertos: " + acerto);
   println("Falsos Positivos: " + falsoPositivo);
-  print("Falsos Negativos: " + falsoNegativo);  
+  print("Falsos Negativos: " + falsoNegativo);
 }
